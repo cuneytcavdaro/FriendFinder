@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Survey Page</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="jumbotron">
+      <h1 class="text-center">
+        <span class="fa fa-fire"></span> Meet Your Mate</h1>
+      <hr>
+      <h2 class="text-center">Find your mate</h2>
+      </div>
+    </div>
+    <div class="row">
+        <h2>Questions</h2>
+
+        <div class="input-group flex-nowrap">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="name">Name</span>
+                </div>
+                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+        </div>
+        <h3>Question 1</h3>
+              <h4>You too confident about doing any kind of work</h4>
+              <select class="chosen-select" id = "q1">
+                  <option value="1">1 (Strongly agree)</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5 (Strongly disagree)</option>
+              </select>
+        <h3>Question 2</h3>
+              <h4>You are very social</h4>
+              <select class="chosen-select" id = "q2">
+                  <option value="1">1 (Strongly agree)</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5 (Strongly disagree)</option>
+              </select>
+        <h3>Question 3</h3>
+              <h4>You can cook</h4>
+              <select class="chosen-select" id = "q3">
+                  <option value="1">1 (Strongly agree)</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5 (Strongly disagree)</option>
+              </select>
+        <h3>Question 4</h3>
+              <h4>You love to travel</h4>
+              <select class="chosen-select" id = "q4">
+                  <option value="1">1 (Strongly agree)</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5 (Strongly disagree)</option>
+              </select>
+        <h3>Question 5</h3>
+              <h4>You love animals</h4>
+              <select class="chosen-select" id = "q5">
+                  <option value="1">1 (Strongly agree)</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5 (Strongly disagree)</option>
+              </select>
+        <h3>Question 6</h3>
+              <h4>You like to spend a lot of time with friends</h4>
+              <select class="chosen-select" id = "q6">
+                  <option value="1">1 (Strongly agree)</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5 (Strongly disagree)</option>
+              </select>
+        <h3>Question 7</h3>
+              <h4>Family is everything</h4>
+              <select class="chosen-select" id = "q7">
+                  <option value="1">1 (Strongly agree)</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5 (Strongly disagree)</option>
+              </select>
+        <h3>Question 8</h3>
+              <h4>Hardwork over laziness?</h4>
+              <select class="chosen-select" id = "q8">
+                  <option value="1">1 (Strongly agree)</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5 (Strongly disagree)</option>
+              </select>
+        <h3>Question 9</h3>
+              <h4></h4>
+              <select class="chosen-select" id = "q9">
+                  <option value="1">1 (Strongly agree)</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5 (Strongly disagree)</option>
+              </select>
+        <h3>Question 10</h3>
+              <h4></h4>
+              <select class="chosen-select" id = "q10">
+                  <option value="1">1 (Strongly agree)</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5 (Strongly disagree)</option>
+              </select>
+
+
+    <footer class="footer">
+      <div class="container">
+        <p><a href="/api/friends">API Friend list</a></p>
+      </div>
+      <div class="modal-body"></div>
+      <h2 id="match-name"></h2>
+    </footer>
+
+  </div>
+
+</body>
+
+</html>
+
+
+<script type="text/javascript">
+
+$.ajax({
+    method: "POST",
+    url: "/api/friends",
+    data: JSON.stringify(userData)
+}).then(function(data){
+    console.log(data);
+    $("match-name").text(data.name)
+},
+ $(".submit").on("click", function(event) {
+    event.preventDefault();
+    var userData = {
+      name: $("#name").val().trim(),
+      scores: [
+          $('#q1').val(),$('#q2').val(),$('#q3').val(),$('#q4').val(),$('#q5').val(),$('#q6').val(),$('#q7').val(),$('#q8').val(),$('#q9').val(),$('#q10').val()
+      ]
+    };
+    console.log(event);
+    }));
+</script>
